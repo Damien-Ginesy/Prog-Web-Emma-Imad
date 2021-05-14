@@ -1,0 +1,33 @@
+:root{
+
+    --primary-color: #6a5bf1;
+}
+
+a{
+    text-decoration: none;
+}
+
+.shadow{
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+
+
+
+.container{
+    align-self: center;
+}
+
+
+.search-box{
+    display: inline;
+    border-right: 2px solid var(--secondary);
+    padding-right: 400px;
+    margin-right: 5px;
+    font-size: 18px;
+    margin: 10px;
+}
+
+.btn-group{
+    margin: 10px;
+}
+
