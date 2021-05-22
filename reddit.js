@@ -63,7 +63,7 @@ app.post('/signup', async(req, res) => {
   const db = await openDb()
   const new_user = req.body.username
   const new_email = req.body.email
-  const new_password = req.body.password
+  const new_password = req.body.password 
   const password_check = req.body.password_check
 
   let data = {
@@ -268,7 +268,6 @@ app.get('/:id/down', async (req, res) => {
   `,[vote,id])
   res.redirect(302,'/')
   })
-
 app.listen(port,() => { 
   console.log("Listening on port ", port) 
 })

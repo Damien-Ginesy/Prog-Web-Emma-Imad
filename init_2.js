@@ -56,7 +56,7 @@ async function createTables(db){
           name varchar(255),
           content text,
           up varchar(255)
-        )
+    )
   `)
   return await Promise.all([accounts,articles])
 }

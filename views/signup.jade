@@ -1,0 +1,44 @@
+html
+  head
+    link(rel='stylesheet' href='https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css' integrity='sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh' crossorigin='anonymous')
+    title Inscription
+    meta(charset='utf-8')
+    meta(name='viewport' content='width=device-width, initial-scale=1, shrink-to-fit=no')
+  body
+    div.container
+        if !logged
+            if errors
+              div.p-2.alert.alert-danger
+                h4=errors
+        .container
+          .row.centered-form
+            .col-xs.col-sm.col-md.col-sm-offset.col-md-offset
+              .panel.panel-default
+                .panel-heading
+                  h2.panel-title Inscris-toi !
+                #debut.panel-body
+                  form(method='POST' action="/signup")
+                    .form-row
+                      .col-md-4.mb-3
+                        label(for='username')  Pseudo 
+                        input#username.form-control.input-sm(type='text' minlength="4" name='username' placeholder='Pseudo')
+                    .form-row
+                      .form-group.col-md-6
+                        label(for='email') Email
+                        .input-group
+                          .input-group-prepend
+                            span#email.input-group-text @
+                          input.form-control.input-sm(type='email' name='email' placeholder='Email' required='')
+                    .form-group.row
+                      label.col-sm-2.col-form-label(for='password')  Mot de Passe 
+                      .col-sm-10
+                        input#password.form-control(type='password' minlength="6" name='password' placeholder='Mot de passe')
+                    .form-group.row
+                      label.col-sm-2.col-form-label(for='password_check')  Mot de passe à confirmer 
+                      .col-sm-10
+                        input#password_check.form-control(type='password' minlength="6" name='password_check' placeholder='Mot de passe')
+                    .form-group
+                      .form-check
+                        input#cgu.form-check-input(type='checkbox' value='' required='')
+                        label.form-check-label(for='cgu') J'accepte les conditions générales d'utilisation
+                    input#submit(type='submit' value="S'inscrire")
