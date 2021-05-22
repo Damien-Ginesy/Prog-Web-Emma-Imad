@@ -119,7 +119,7 @@ app.get('/login', (req, res) => {
         logged: false
       }
       res.render('login',data)
-    } 
+    }
     else {
       req.session.logged = true
       data = {
@@ -183,7 +183,91 @@ app.post('/:id', async (req, res) => {
   res.redirect("/" + id)
   })
 
+app.get('/article/create', async (req, res) => {
+  if(!req.session.logged){
+    res.redirect(302,'/login')
+    return
+  }
+  const db = await openDb()
 
+  const article = await db.all(`
+    SELECT * FROM article
+  `)
+  res.render("article-create",{article: article})
+  })
+
+app.post('/article/create', async (req, res) => {
+  if(!req.session.logged){
+    res.redirect(302,'/login')
+    return
+  }
+
+  const db = await openDb()
+  const id = req.params.id
+  const name = req.body.name
+  const content = req.body.content
+  const up = 0
+  const article = await db.run(`
+    INSERT INTO article(name,content,up)
+    VALUES(?, ?, ?)
+  `,[name, content, up])
+  res.redirect("/" + article.lastID)
+  })
+
+
+app.post('/article/:id/delete', async (req, res) => {
+  if(!req.session.logged){
+    res.redirect(302,'/login')
+    return
+  }
+  const id = req.params.id
+  const db = await openDb()
+  const article = await db.get(`
+    DELETE FROM article
+    WHERE id = ?
+  `,[id])
+  res.redirect(302,'/')
+  })
+
+app.get('/:id/up', async (req, res) => {
+  if(!req.session.logged){
+    res.redirect(302,'/login')
+    return
+  }
+  const id = req.params.id
+  const up = await db.get(`
+    SELECT * FROM article
+    WHERE id = ?
+    `, [id])
+  vote = up.up + 1
+  const db = await openDb()
+  await db.run(`
+    UPDATE article
+    SET up = ?
+    WHERE id = ?
+  `,[vote,id])
+  res.redirect(302,'/')
+  })
+
+app.get('/:id/down', async (req, res) => {
+  if(!req.session.logged){
+    res.redirect(302,'/login')
+    return
+  }
+  const id = req.params.id
+  const up = await db.get(`
+    SELECT * FROM article
+    WHERE id = ?
+    `, [id])
+  vote = up.up - 1
+  const db = await openDb()
+  await db.run(`
+    UPDATE article
+    SET up = ?
+    WHERE id = ?
+  `,[vote,id])
+  res.redirect(302,'/')
+  })
 app.listen(port,() => { 
   console.log("Listening on port ", port) 
 })

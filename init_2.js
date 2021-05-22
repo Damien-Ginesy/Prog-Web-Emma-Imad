@@ -23,18 +23,21 @@ async function createNewUser(db){
 }
 
 async function createArticle(db){
-  const insertRequest = await db.prepare("INSERT INTO article(name, content) VALUES(?, ?)")
+  const insertRequest = await db.prepare("INSERT INTO article(name, content, up) VALUES(?, ?, ?)")
   const contents = [{
     name: "Article 1",
-    content: "Hello c'est un nouvel article"
+    content: "Hello c'est un nouvel article",
+    up: "2"
+
   },
     {
       name: "Article 2",
-      content: "C'est juste un test"
+      content: "C'est juste un test",
+      up: "1"
     }
   ]
   return await Promise.all(contents.map(article => {
-    return insertRequest.run([article.name, article.content])
+    return insertRequest.run([article.name, article.content, article.up])
   }))
 }
 
@@ -51,8 +54,9 @@ async function createTables(db){
         CREATE TABLE IF NOT EXISTS article(
           id INTEGER PRIMARY KEY,
           name varchar(255),
-          content text
-        )
+          content text,
+          up varchar(255)
+    )
   `)
   return await Promise.all([accounts,articles])
 }

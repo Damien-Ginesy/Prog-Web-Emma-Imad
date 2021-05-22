@@ -1,0 +1,19 @@
+html(lang="en")
+    head
+        link(href='https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css' rel='stylesheet' integrity='sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1' crossorigin='anonymous')
+        link(href="/style/main.css" rel="stylesheet" type="text/css")
+        title=Reddit
+    body(class="container") 
+        form(action="/" + id method="POST")
+            div.row
+                div.col
+                    div
+                        a.editer_titre= "Titre de l'article : "
+                        input.texte_titre(type="text" value=article_name id="name" name="name")
+            div.row
+                div.col
+                    div
+                        a.editer_contenu_article= "Contenu de l'article : "
+                        input.texte_article(type="text" value=article_content id="content" name="content")
+            div.sauvegarder
+                input(type="Submit" value="Sauvegarder")
