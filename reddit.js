@@ -47,7 +47,7 @@ app.get("/", async(req, res) => {
   }
   const db = await openDb()
   const article = await db.all(`
-    SELECT * FROM article
+    SELECT * FROM article ORDER BY up DESC
   `)
   const data = {
     article:article
